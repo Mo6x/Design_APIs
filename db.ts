@@ -8,4 +8,4 @@ const pool = new Pool({
   database: 'admin_database',
 });
 
-module.exports = pool;
+export default pool;

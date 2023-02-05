@@ -12,7 +12,7 @@ import express, {
   import cors from 'cors';
   import routes from './routes';
   import adminRoutes from './routes/index';
-  import { pool } from 'db-pool';
+  import pool from '../db';
 
 
   config()
@@ -70,7 +70,7 @@ import express, {
   app.post('/group/invitation/accept', async (req, res) => {
     const { groupId, userId } = req.body;
     try {
-      await connection.query('UPDATE group_members SET status = $1 WHERE group_id = $2 AND member_id = $3', ['accepted', groupId, userId]);
+      await pool.query('UPDATE group_members SET status = $1 WHERE group_id = $2 AND member_id = $3', ['accepted', groupId, userId]);
       return res.status(200).json({ message: 'Invitation accepted' });
     } catch (err) {
       let errorMessage = "Not Sucessful Sent";
